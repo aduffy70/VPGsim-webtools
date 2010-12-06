@@ -1,0 +1,365 @@
+<?php
+    function IsChecked($parameterValue, $buttonNumber)
+    {
+        if ($parameterValue == $buttonNumber)
+        {
+            echo "checked=\"\"";
+        }
+    }
+
+    if(!file_exists("fs-parameters/current"))
+    {
+    die( "***Warning: No current parameters file exists***");
+    }
+    else
+    {
+        $file = fopen("fs-parameters/current", "r");
+        $x=0;
+        while(!feof($file))
+        {
+            $parameters[$x] = fgets($file);
+            $x++;
+        }
+        fclose($file);
+    }
+    $timestamp = time();
+?>
+
+<form action="cgi-bin/parameters-ready.php" method="POST">
+    <p>This form controls the life history and genetic parameters of a simulated population of ferns growing in the 3D virtual world, ScienceSim. &nbsp;Changes made here will not take effect until they are enabled from within the virtual world.</p>
+    <p>
+        <b>Version Identifier:</b> A unique code to identify this parameter set.<br> &nbsp;
+            <input type="text" name="versionID" value="<?=$timestamp ?>" maxlength="11" size="11" readonly="readonly">
+            &nbsp;&nbsp;<i>Generated automatically</i><br><br>
+        <b>Cycle Time (seconds):</b> Controls how often the plants calculate fitness and determines the speed of the simulation.<br>&nbsp;
+            <input type="text" name="cycleTime" value="<?=$parameters[1] ?>" maxlength="5" size="5">
+            &nbsp;<i>30-3600</i><br><br>
+        <b>Gametophyte Neighborhood (meters):</b> Gametophytes effect the fitness of neighbors within this radius.<br>
+            &nbsp; Spores:
+                <input type="text" name="gametophyteNeighborhoodSpore" value="<?=$parameters[2] ?>" maxlength="4" size="4">
+            Gametophytes:
+                <input type="text" name="gametophyteNeighborhoodGametophyte" value="<?=$parameters[3] ?>" maxlength="4" size="4">
+            Sporophytes:
+                <input type="text" name="gametophyteNeighborhoodSporophytes" value="<?=$parameters[4] ?>" maxlength="4" size="4">
+                &nbsp;<i>0.0-10.0</i><br><br>
+        <b>Sperm Neighborhood (meters):</b> Distance that sperm can travel to a mate.<br>
+            &nbsp;  Gametophytes:
+                <input type="text" name="spermNeighborhood" value="<?=$parameters[5] ?>" maxlength="4" size="4">
+                &nbsp;<i>0.0-10.0</i><br><br>
+        <b>Sporophyte Neighborhood (meters):</b> Sporophytes effect the fitness of neighbors within this radius. <br>
+            &nbsp; Spores:
+                <input type="text" name="sporophyteNeighborhoodSpore" value="<?=$parameters[6] ?>" maxlength="4" size="4">
+            Gametophytes:
+                <input type="text" name="sporophyteNeighborhoodGametophyte" value="<?=$parameters[7] ?>" maxlength="4" size="4">
+            Sporophytes:
+                <input type="text" name="sporophyteNeighborhoodSporophyte" value="<?=$parameters[8] ?>" maxlength="4" size="4">
+                &nbsp;<i>0.0-10.0</i><br><br>
+        <b>Sporophyte Weight:</b> How many times more effect sporophytes have on their neighbors than gametophytes.<br>
+            &nbsp; Spores:
+                <input type="text" name="sporophyteWeightSpore" value="<?=$parameters[9] ?>" maxlength="4" size="4">
+            Gametophytes:
+                <input type="text" name="sporophyteWeightGametophyte" value="<?=$parameters[10] ?>" maxlength="4" size="4">
+            Sporophytes:
+                <input type="text" name="sporophyteWeightSporophyte" value="<?=$parameters[11] ?>" maxlength="4" size="4">&nbsp;<i>0.0-10.0</i><br><br>
+        <b>Neighbor Shape:</b> The shape of the fitness curve based on the weighted number of neighbors.<br>
+            &nbsp; Spores:
+                <input type="text" name="neighborShapeSpore" value="<?=$parameters[12] ?>" maxlength="4" size="4">
+            Gametophytes:
+                <input type="text" name="neighborShapeGametophyte" value="<?=$parameters[13] ?>" maxlength="4" size="4">
+            Sporophytes:
+                <input type="text" name="neighborShapeSporophyte" value="<?=$parameters[14] ?>" maxlength="4" size="4">
+                &nbsp;<i>0.0-10.0</i><br><br>
+        <b>Locus controlling response to Altitude:</b> <br>
+            &nbsp;Spores:
+                <input type="radio" name="altitudeLocusSpore" value="0" <? IsChecked($parameters[15],0); ?>>None
+                <input type="radio" name="altitudeLocusSpore" value="5" <? IsChecked($parameters[15],5); ?>>5
+                <input type="radio" name="altitudeLocusSpore" value="4" <? IsChecked($parameters[15],4); ?>>4
+                <input type="radio" name="altitudeLocusSpore" value="3" <? IsChecked($parameters[15],3); ?>>3
+                <input type="radio" name="altitudeLocusSpore" value="2" <? IsChecked($parameters[15],2); ?>>2
+                <input type="radio" name="altitudeLocusSpore" value="1" <? IsChecked($parameters[15],1); ?>>1 (right-most locus) <br>
+            Gametophytes:
+                <input type="radio" name="altitudeLocusGametophyte" value="0" <? IsChecked($parameters[16],0); ?>>None
+                <input type="radio" name="altitudeLocusGametophyte" value="5" <? IsChecked($parameters[16],5); ?>>5
+                <input type="radio" name="altitudeLocusGametophyte" value="4" <? IsChecked($parameters[16],4); ?>>4
+                <input type="radio" name="altitudeLocusGametophyte" value="3" <? IsChecked($parameters[16],3); ?>>3
+                <input type="radio" name="altitudeLocusGametophyte" value="2" <? IsChecked($parameters[16],2); ?>>2
+                <input type="radio" name="altitudeLocusGametophyte" value="1" <? IsChecked($parameters[16],1); ?>>1 <br>
+            &nbsp;&nbsp;Sporophytes:
+                <input type="radio" name="altitudeLocusSporophyte" value="0" <? IsChecked($parameters[17],0); ?>>None
+                <input type="radio" name="altitudeLocusSporophyte" value="5" <? IsChecked($parameters[17],5); ?>>5
+                <input type="radio" name="altitudeLocusSporophyte" value="4" <? IsChecked($parameters[17],4); ?>>4
+                <input type="radio" name="altitudeLocusSporophyte" value="3" <? IsChecked($parameters[17],3); ?>>3
+                <input type="radio" name="altitudeLocusSporophyte" value="2" <? IsChecked($parameters[17],2); ?>>2
+                <input type="radio" name="altitudeLocusSporophyte" value="1" <? IsChecked($parameters[17],1); ?>>1 <br><br>
+        <b>Optimum Altitude (meters) for dominant phenotype:</b><br>
+            &nbsp; Spores:
+                <input type="text" name="altitudeOptSpore" value="<?=$parameters[18] ?>" maxlength="4" size="4">
+            Gametophytes:
+                <input type="text" name="altitudeOptGametophyte" value="<?=$parameters[19] ?>" maxlength="4" size="4">
+            Sporophytes:
+                <input type="text" name="altitudeOptSporophytes" value="<?=$parameters[20] ?>" maxlength="4" size="4">&nbsp;<i>0.0-500.0</i><br><br>
+        <b>Altitude fitness curve shape for dominant phenotype:</b><br>
+            &nbsp; Spores:
+                <input type="text" name="altitudeShapeSpore" value="<?=$parameters[21] ?>" maxlength="4" size="4">
+            Gametophytes:
+                <input type="text" name="altitudeShapeGametophyte" value="<?=$parameters[22] ?>" maxlength="4" size="4">
+            Sporophytes:
+                <input type="text" name="altitudeShapeSporophytes" value="<?=$parameters[23] ?>" maxlength="4" size="4">&nbsp;<i>0.0-10.0</i><br><br>
+        <b>Optimum Altitude (meters) for recessive phenotype:</b><br>
+            &nbsp; Spores:
+                <input type="text" name="altitudeOptRecSpore" value="<?=$parameters[24] ?>" maxlength="4" size="4">
+            Gametophytes:
+                <input type="text" name="altitudeOptRecGametophyte" value="<?=$parameters[25] ?>" maxlength="4" size="4">
+            Sporophytes:
+                <input type="text" name="altitudeOptRecSporophytes" value="<?=$parameters[26] ?>" maxlength="4" size="4">&nbsp;<i>0.0-500.0</i><br><br>
+        <b>Altitude fitness curve shape for recessive phenotype:</b><br>&nbsp;
+            Spores:
+                <input type="text" name="altitudeShapeRecSpore" value="<?=$parameters[27] ?>" maxlength="4" size="4">
+            Gametophytes:
+                <input type="text" name="altitudeShapeRecGametophyte" value="<?=$parameters[28] ?>" maxlength="4" size="4">
+            Sporophytes:
+                <input type="text" name="altitudeShapeRecSporophytes" value="<?=$parameters[29] ?>" maxlength="4" size="4">&nbsp;<i>0.0-10.0</i><br><br>
+        <b>Locus controlling response to Soil Salinity:</b><br>
+            &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Spores:
+                <input type="radio" name="salinityLocusSpore" value="0" <? IsChecked($parameters[30],0); ?>>None
+                <input type="radio" name="salinityLocusSpore" value="5" <? IsChecked($parameters[30],5); ?>>5
+                <input type="radio" name="salinityLocusSpore" value="4" <? IsChecked($parameters[30],4); ?>>4
+                <input type="radio" name="salinityLocusSpore" value="3" <? IsChecked($parameters[30],3); ?>>3
+                <input type="radio" name="salinityLocusSpore" value="2" <? IsChecked($parameters[30],2); ?>>2
+                <input type="radio" name="salinityLocusSpore" value="1" <? IsChecked($parameters[30],1); ?>>1 (right-most locus) <br>
+            Gametophytes:
+                <input type="radio" name="salinityLocusGametophyte" value="0" <? IsChecked($parameters[31],0); ?>>None
+                <input type="radio" name="salinityLocusGametophyte" value="5" <? IsChecked($parameters[31],5); ?>>5
+                <input type="radio" name="salinityLocusGametophyte" value="4" <? IsChecked($parameters[31],4); ?>>4
+                <input type="radio" name="salinityLocusGametophyte" value="3" <? IsChecked($parameters[31],3); ?>>3
+                <input type="radio" name="salinityLocusGametophyte" value="2" <? IsChecked($parameters[31],2); ?>>2
+                <input type="radio" name="salinityLocusGametophyte" value="1" <? IsChecked($parameters[31],1); ?>>1 <br>
+            &nbsp;&nbsp;Sporophytes:
+                <input type="radio" name="salinityLocusSporophyte" value="0" <? IsChecked($parameters[32],0); ?>>None
+                <input type="radio" name="salinityLocusSporophyte" value="5" <? IsChecked($parameters[32],5); ?>>5
+                <input type="radio" name="salinityLocusSporophyte" value="4" <? IsChecked($parameters[32],4); ?>>4
+                <input type="radio" name="salinityLocusSporophyte" value="3" <? IsChecked($parameters[32],3); ?>>3
+                <input type="radio" name="salinityLocusSporophyte" value="2" <? IsChecked($parameters[32],2); ?>>2
+                <input type="radio" name="salinityLocusSporophyte" value="1" <? IsChecked($parameters[32],1); ?>>1 <br><br>
+        <b>Optimum Salinity for dominant phenotype:</b><br>
+            &nbsp; Spores:
+                <input type="text" name="salinityOptSpore" value="<?=$parameters[33] ?>" maxlength="4" size="4"> Gametophytes:
+                    <input type="text" name="salinityOptGametophyte" value="<?=$parameters[34] ?>" maxlength="4" size="4">
+                Sporophytes:
+                    <input type="text" name="salinityOptSporophytes" value="<?=$parameters[35] ?>" maxlength="4" size="4">&nbsp;<i>0.0-1.0</i><br><br>
+        <b>Salinity fitness curve shape for dominant phenotype:</b><br>
+            &nbsp; Spores:
+                <input type="text" name="salinityShapeSpore" value="<?=$parameters[36] ?>" maxlength="4" size="4">
+            Gametophytes:
+                <input type="text" name="salinityShapeGametophyte" value="<?=$parameters[37] ?>" maxlength="4" size="4">
+            Sporophytes:
+                <input type="text" name="salinityShapeSporophytes" value="<?=$parameters[38] ?>" maxlength="4" size="4">&nbsp;<i>0.0-10.0</i><br><br>
+        <b>Optimum Salinity for recessive phenotype:</b><br>
+            &nbsp; Spores:
+                <input type="text" name="salinityOptRecSpore" value="<?=$parameters[39] ?>" maxlength="4" size="4">
+            Gametophytes:
+                <input type="text" name="salinityOptRecGametophyte" value="<?=$parameters[40] ?>" maxlength="4" size="4">
+            Sporophytes:
+            <input type="text" name="salinityOptRecSporophytes" value="<?=$parameters[41] ?>" maxlength="4" size="4">&nbsp;<i>0.0-1.0</i><br><br>
+        <b>Salinity fitness curve shape for recessive phenotype:</b><br>
+            &nbsp; Spores:
+                <input type="text" name="salinityShapeRecSpore" value="<?=$parameters[42] ?>" maxlength="4" size="4">
+            Gametophytes:
+                <input type="text" name="salinityShapeRecGametophyte" value="<?=$parameters[43] ?>" maxlength="4" size="4">
+            Sporophytes:
+                <input type="text" name="salinityShapeRecSporophytes" value="<?=$parameters[44] ?>" maxlength="4" size="4">&nbsp;<i>0.0-10.0</i><br><br>
+        <b>Locus controlling response to Soil Drainage:</b> <br>
+            &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Spores:
+                <input type="radio" name="drainageLocusSpore" value="0"  <? IsChecked($parameters[45],0); ?>>None
+                <input type="radio" name="drainageLocusSpore" value="5" <? IsChecked($parameters[45],5); ?>>5
+                <input type="radio" name="drainageLocusSpore" value="4" <? IsChecked($parameters[45],4); ?>>4
+                <input type="radio" name="drainageLocusSpore" value="3" <? IsChecked($parameters[45],3); ?>>3
+                <input type="radio" name="drainageLocusSpore" value="2" <? IsChecked($parameters[45],2); ?>>2
+                <input type="radio" name="drainageLocusSpore" value="1" <? IsChecked($parameters[45],1); ?>>1 (right-most locus) <br>
+            Gametophytes:
+                <input type="radio" name="drainageLocusGametophyte" value="0"  <? IsChecked($parameters[46],0); ?>>None
+                <input type="radio" name="drainageLocusGametophyte" value="5" <? IsChecked($parameters[46],5); ?>>5
+                <input type="radio" name="drainageLocusGametophyte" value="4" <? IsChecked($parameters[46],4); ?>>4
+                <input type="radio" name="drainageLocusGametophyte" value="3" <? IsChecked($parameters[46],3); ?>>3
+                <input type="radio" name="drainageLocusGametophyte" value="2" <? IsChecked($parameters[46],2); ?>>2
+                <input type="radio" name="drainageLocusGametophyte" value="1" <? IsChecked($parameters[46],1); ?>>1 <br>
+            &nbsp;&nbsp;Sporophytes:
+                <input type="radio" name="drainageLocusSporophyte" value="0" <? IsChecked($parameters[47],0); ?>>None
+                <input type="radio" name="drainageLocusSporophyte" value="5" <? IsChecked($parameters[47],5); ?>>5
+                <input type="radio" name="drainageLocusSporophyte" value="4" <? IsChecked($parameters[47],4); ?>>4
+                <input type="radio" name="drainageLocusSporophyte" value="3" <? IsChecked($parameters[47],3); ?>>3
+                <input type="radio" name="drainageLocusSporophyte" value="2" <? IsChecked($parameters[47],2); ?>>2
+                <input type="radio" name="drainageLocusSporophyte" value="1" <? IsChecked($parameters[47],1); ?>>1 <br><br>
+        <b>Optimum Drainage for dominant phenotype:</b><br>
+            &nbsp; Spores:
+                <input type="text" name="drainageOptSpore" value="<?=$parameters[48] ?>" maxlength="4" size="4">
+            Gametophytes:
+                <input type="text" name="drainageOptGametophyte" value="<?=$parameters[49] ?>" maxlength="4" size="4">
+            Sporophytes:
+                <input type="text" name="drainageOptSporophytes" value="<?=$parameters[50] ?>" maxlength="4" size="4">&nbsp;<i>0.0-1.0</i><br><br>
+        <b>Drainage fitness curve shape for dominant phenotype:</b><br>
+            &nbsp; Spores:
+                <input type="text" name="drainageShapeSpore" value="<?=$parameters[51] ?>" maxlength="4" size="4">
+            Gametophytes:
+                <input type="text" name="drainageShapeGametophyte" value="<?=$parameters[52] ?>" maxlength="4" size="4">
+            Sporophytes:
+                <input type="text" name="drainageShapeSporophytes" value="<?=$parameters[53] ?>" maxlength="4" size="4">&nbsp;<i>0.0-10.0</i><br><br>
+        <b>Optimum Drainage for recessive phenotype:</b><br>
+            &nbsp; Spores:
+                <input type="text" name="drainageOptRecSpore" value="<?=$parameters[54] ?>" maxlength="4" size="4">
+            Gametophytes:
+                <input type="text" name="drainageOptRecGametophyte" value="<?=$parameters[55] ?>" maxlength="4" size="4">
+            Sporophytes:
+                <input type="text" name="drainageOptRecSporophytes" value="<?=$parameters[56] ?>" maxlength="4" size="4">&nbsp;<i>0.0-1.0</i><br><br>
+        <b>Drainage fitness curve shape for recessive phenotype:</b><br>
+            &nbsp; Spores:
+                <input type="text" name="drainageShapeRecSpore" value="<?=$parameters[57] ?>" maxlength="4" size="4">
+            Gametophytes:
+                <input type="text" name="drainageShapeRecGametophyte" value="<?=$parameters[58] ?>" maxlength="4" size="4">
+            Sporophytes:
+                <input type="text" name="drainageShapeRecSporophytes" value="<?=$parameters[59] ?>" maxlength="4" size="4">&nbsp;<i>0.0-10.0</i><br><br>
+        <b>Locus controlling response to Soil Fertility: </b><br>
+            &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Spores:
+                <input type="radio" name="fertilityLocusSpore" value="0"  <? IsChecked($parameters[60],0); ?>>None
+                <input type="radio" name="fertilityLocusSpore" value="5" <? IsChecked($parameters[60],5); ?>>5
+                <input type="radio" name="fertilityLocusSpore" value="4" <? IsChecked($parameters[60],4); ?>>4
+                <input type="radio" name="fertilityLocusSpore" value="3" <? IsChecked($parameters[60],3); ?>>3
+                <input type="radio" name="fertilityLocusSpore" value="2" <? IsChecked($parameters[60],2); ?>>2
+                <input type="radio" name="fertilityLocusSpore" value="1" <? IsChecked($parameters[60],1); ?>>1 (right-most locus) <br>
+            Gametophytes:
+                <input type="radio" name="fertilityLocusGametophyte" value="0" <? IsChecked($parameters[61],0); ?>>None
+                <input type="radio" name="fertilityLocusGametophyte" value="5" <? IsChecked($parameters[61],5); ?>>5
+                <input type="radio" name="fertilityLocusGametophyte" value="4" <? IsChecked($parameters[61],4); ?>>4
+                <input type="radio" name="fertilityLocusGametophyte" value="3" <? IsChecked($parameters[61],3); ?>>3
+                <input type="radio" name="fertilityLocusGametophyte" value="2" <? IsChecked($parameters[61],2); ?>>2
+                <input type="radio" name="fertilityLocusGametophyte" value="1" <? IsChecked($parameters[61],1); ?>>1 <br>
+            &nbsp;&nbsp;Sporophytes:
+                <input type="radio" name="fertilityLocusSporophyte" value="0"  <? IsChecked($parameters[62],0); ?>>None
+                <input type="radio" name="fertilityLocusSporophyte" value="5" <? IsChecked($parameters[62],5); ?>>5
+                <input type="radio" name="fertilityLocusSporophyte" value="4" <? IsChecked($parameters[62],4); ?>>4
+                <input type="radio" name="fertilityLocusSporophyte" value="3" <? IsChecked($parameters[62],3); ?>>3
+                <input type="radio" name="fertilityLocusSporophyte" value="2" <? IsChecked($parameters[62],2); ?>>2
+                <input type="radio" name="fertilityLocusSporophyte" value="1" <? IsChecked($parameters[62],1); ?>>1 <br><br>
+        <b>Optimum Fertility for dominant phenotype:</b><br>
+            &nbsp; Spores:
+                <input type="text" name="fertilityOptSpore" value="<?=$parameters[63] ?>" maxlength="4" size="4">
+            Gametophytes:
+                <input type="text" name="fertilityOptGametophyte" value="<?=$parameters[64] ?>" maxlength="4" size="4">
+            Sporophytes:
+                <input type="text" name="fertilityOptSporophytes" value="<?=$parameters[65] ?>" maxlength="4" size="4">&nbsp;<i>0.0-1.0</i><br><br>
+        <b>Fertility fitness curve shape for dominant phenotype:</b><br>
+            &nbsp; Spores:
+                <input type="text" name="fertilityShapeSpore" value="<?=$parameters[66] ?>" maxlength="4" size="4">
+            Gametophytes:
+                <input type="text" name="fertilityShapeGametophyte" value="<?=$parameters[67] ?>" maxlength="4" size="4">
+            Sporophytes:
+                <input type="text" name="fertilityShapeSporophytes" value="<?=$parameters[68] ?>" maxlength="4" size="4">&nbsp;<i>0.0-10.0</i><br><br>
+        <b>Optimum Fertility for recessive phenotype:</b><br>
+            &nbsp; Spores:
+                <input type="text" name="fertilityOptRecSpore" value="<?=$parameters[69] ?>" maxlength="4" size="4">
+            Gametophytes:
+                <input type="text" name="fertilityOptRecGametophyte" value="<?=$parameters[70] ?>" maxlength="4" size="4">
+            Sporophytes:
+                <input type="text" name="fertilityOptRecSporophytes" value="<?=$parameters[71] ?>" maxlength="4" size="4">&nbsp;<i>0.0-1.0</i><br><br>
+        <b>Fertility fitness curve shape for recessive phenotype:</b><br>
+            &nbsp; Spores:
+                <input type="text" name="fertilityShapeRecSpore" value="<?=$parameters[72] ?>" maxlength="4" size="4">
+            Gametophytes:
+                <input type="text" name="fertilityShapeRecGametophyte" value="<?=$parameters[73] ?>" maxlength="4" size="4">
+            Sporophytes:
+                <input type="text" name="fertilityShapeRecSporophytes" value="<?=$parameters[74] ?>" maxlength="4" size="4">&nbsp;<i>0.0-10.0</i><br><br>
+        <b>Locus controlling Maximum Lifespan: </b><br>
+            &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Spores:
+                <input type="radio" name="lifespanLocusSpore" value="0" <? IsChecked($parameters[75],0); ?>>None
+                <input type="radio" name="lifespanLocusSpore" value="5" <? IsChecked($parameters[75],5); ?>>5
+                <input type="radio" name="lifespanLocusSpore" value="4" <? IsChecked($parameters[75],4); ?>>4
+                <input type="radio" name="lifespanLocusSpore" value="3" <? IsChecked($parameters[75],3); ?>>3
+                <input type="radio" name="lifespanLocusSpore" value="2" <? IsChecked($parameters[75],2); ?>>2
+                <input type="radio" name="lifespanLocusSpore" value="1" <? IsChecked($parameters[75],1); ?>>1 (right-most locus) <br>
+            Gametophytes:
+                <input type="radio" name="lifespanLocusGametophyte" value="0" <? IsChecked($parameters[76],0); ?>>None
+                <input type="radio" name="lifespanLocusGametophyte" value="5" <? IsChecked($parameters[76],5); ?>>5
+                <input type="radio" name="lifespanLocusGametophyte" value="4" <? IsChecked($parameters[76],4); ?>>4
+                <input type="radio" name="lifespanLocusGametophyte" value="3" <? IsChecked($parameters[76],3); ?>>3
+                <input type="radio" name="lifespanLocusGametophyte" value="2" <? IsChecked($parameters[76],2); ?>>2
+                <input type="radio" name="lifespanLocusGametophyte" value="1" <? IsChecked($parameters[76],1); ?>>1 <br>
+            &nbsp;&nbsp;Sporophytes:
+                <input type="radio" name="lifespanLocusSporophyte" value="0" <? IsChecked($parameters[77],0); ?>>None
+                <input type="radio" name="lifespanLocusSporophyte" value="5" <? IsChecked($parameters[77],5); ?>>5
+                <input type="radio" name="lifespanLocusSporophyte" value="4" <? IsChecked($parameters[77],4); ?>>4
+                <input type="radio" name="lifespanLocusSporophyte" value="3" <? IsChecked($parameters[77],3); ?>>3
+                <input type="radio" name="lifespanLocusSporophyte" value="2" <? IsChecked($parameters[77],2); ?>>2
+                <input type="radio" name="lifespanLocusSporophyte" value="1" <? IsChecked($parameters[77],1); ?>>1 <br><br>
+        <b>Maximum Lifespan ( # of cycles) for dominant phenotype:</b><br>
+            &nbsp; Spores:
+                <input type="text" name="lifespanSpore" value="<?=$parameters[78] ?>" maxlength="4" size="4">
+            Gametophytes:
+                <input type="text" name="lifespanGametophyte" value="<?=$parameters[79] ?>" maxlength="4" size="4">
+            Sporophytes:
+                <input type="text" name="lifespanSporophytes" value="<?=$parameters[80] ?>" maxlength="4" size="4">&nbsp;<i>0-100</i><br><br>
+        <b>Maximum Lifespan for recessive phenotype:</b><br>
+            &nbsp; Spores:
+                <input type="text" name="lifespanRecSpore" value="<?=$parameters[81] ?>" maxlength="4" size="4">
+            Gametophytes:
+                <input type="text" name="lifespanRecGametophyte" value="<?=$parameters[82] ?>" maxlength="4" size="4">
+            Sporophytes:
+                <input type="text" name="lifespanRecSporophytes" value="<?=$parameters[83] ?>" maxlength="4" size="4">&nbsp;<i>0-100</i><br><br>
+        <b>Locus controlling Minimum Cloudcover needed for spore germination or gametophyte mating:</b> Cloudcover is a proxy for humidity &amp; precipitation. <br>
+            &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Spores:
+                <input type="radio" name="rainLocusSpore" value="0" <? IsChecked($parameters[84],0); ?>>None
+                <input type="radio" name="rainLocusSpore" value="5" <? IsChecked($parameters[84],5); ?>>5
+                <input type="radio" name="rainLocusSpore" value="4" <? IsChecked($parameters[84],4); ?>>4
+                <input type="radio" name="rainLocusSpore" value="3" <? IsChecked($parameters[84],3); ?>>3
+                <input type="radio" name="rainLocusSpore" value="2" <? IsChecked($parameters[84],2); ?>>2
+                <input type="radio" name="rainLocusSpore" value="1" <? IsChecked($parameters[84],1); ?>>1 (right-most locus) <br>
+            Gametophytes:
+                <input type="radio" name="rainLocusGametophyte" value="0" <? IsChecked($parameters[85],0); ?>>None
+                <input type="radio" name="rainLocusGametophyte" value="5" <? IsChecked($parameters[85],5); ?>>5
+                <input type="radio" name="rainLocusGametophyte" value="4" <? IsChecked($parameters[85],4); ?>>4
+                <input type="radio" name="rainLocusGametophyte" value="3" <? IsChecked($parameters[85],3); ?>>3
+                <input type="radio" name="rainLocusGametophyte" value="2" <? IsChecked($parameters[85],2); ?>>2
+                <input type="radio" name="rainLocusGametophyte" value="1" <? IsChecked($parameters[85],1); ?>>1 <br><br> <b>Minimum Cloudcover for dominant phenotype:</b><br>
+            &nbsp; Spores:
+                <input type="text" name="rainSpore" value="<?=$parameters[86] ?>" maxlength="4" size="4"> Gametophytes:
+                <input type="text" name="rainGametophyte" value="<?=$parameters[87] ?>" maxlength="4" size="4">&nbsp;<i>0.0-1.0</i><br><br> <b>Minimum Cloudcover for recessive phenotype:</b><br>&nbsp; Spores:
+                <input type="text" name="rainRecSpore" value="<?=$parameters[88] ?>" maxlength="4" size="4"> Gametophytes:
+                <input type="text" name="rainRecGametophyte" value="<?=$parameters[89] ?>" maxlength="4" size="4">&nbsp;<i>0.0-1.0</i><br><br>
+        <b>Locus controlling Sporulation Advantage:</b> Sporulation Advantage is the number of additional spores a perfectly fit sporophyte releases each time it sporulates.  For less fit sporophytes, the additional number of spores is scaled based on fitness. <br>
+            &nbsp;&nbsp;Sporophytes:
+                <input type="radio" name="advantageLocusSporophyte" value="0" <? IsChecked($parameters[90],0); ?>>None
+                <input type="radio" name="advantageLocusSporophyte" value="5" <? IsChecked($parameters[90],5); ?>>5
+                <input type="radio" name="advantageLocusSporophyte" value="4" <? IsChecked($parameters[90],4); ?>>4
+                <input type="radio" name="advantageLocusSporophyte" value="3" <? IsChecked($parameters[90],3); ?>>3
+                <input type="radio" name="advantageLocusSporophyte" value="2" <? IsChecked($parameters[90],2); ?>>2
+                <input type="radio" name="advantageLocusSporophyte" value="1" <? IsChecked($parameters[90],1); ?>>1 (right-most locus) <br><br>
+        <b>Sporulation Advantage (# of additional spores) for dominant phenotype:</b><br>
+            &nbsp; Sporophytes:
+                <input type="text" name="advantageSporophytes" value="<?=$parameters[91] ?>" maxlength="4" size="4">&nbsp;<i>0-10</i><br><br>
+        <b>Sporulation Advantage for recessive phenotype:</b><br>
+            &nbsp; Sporophytes:
+                <input type="text" name="advantageRecSporophytes" value="<?=$parameters[92] ?>" maxlength="4" size="4">&nbsp;<i>0-10</i><br><br>
+        <b>Locus controlling Maximum Dispersal Distance:</b> <br>
+            &nbsp;&nbsp;Sporophytes:
+                <input type="radio" name="distanceLocusSporophyte" value="0" <? IsChecked($parameters[93],0); ?>>None
+                <input type="radio" name="distanceLocusSporophyte" value="5" <? IsChecked($parameters[93],5); ?>>5
+                <input type="radio" name="distanceLocusSporophyte" value="4" <? IsChecked($parameters[93],4); ?>>4
+                <input type="radio" name="distanceLocusSporophyte" value="3" <? IsChecked($parameters[93],3); ?>>3
+                <input type="radio" name="distanceLocusSporophyte" value="2" <? IsChecked($parameters[93],2); ?>>2
+                <input type="radio" name="distanceLocusSporophyte" value="1" <? IsChecked($parameters[93],1); ?>>1 (right-most locus) <br><br>
+        <b>Maximum Dispersal Distance for dominant phenotype:</b><br>
+            &nbsp; Sporophytes:
+                <input type="text" name="distanceMaxSporophytes" value="<?=$parameters[94] ?>" maxlength="6" size="6">&nbsp;<i>0.0-1000.0</i><br><br>
+        <b>Dispersal Distance Shape for dominant phenotype:</b><br>
+            &nbsp; Sporophytes:
+                <input type="text" name="distanceShapeSporophytes" value="<?=$parameters[95] ?>" maxlength="5" size="5">&nbsp;<i>0.0-100.0</i><br><br>
+        <b>Maximum Dispersal Distance for recessive phenotype:</b><br>
+            &nbsp; Sporophytes:
+                <input type="text" name="distanceMaxRecSporophytes" value="<?=$parameters[96] ?>" maxlength="6" size="6">&nbsp;<i>0.0-1000.0</i><br><br>
+        <b>Dispersal Distance Shape for recessive phenotype:</b><br>
+            &nbsp; Sporophytes:
+                <input type="text" name="distanceShapeRecSporophytes" value="<?=$parameters[97] ?>" maxlength="5" size="5">&nbsp;<i>0.0-100.0</i><br><br>
+        <input type="RESET" value="Reset the Form">
+        <input type="submit" value="Submit">
+    </p>
+</form>
+<p>&nbsp;</p>

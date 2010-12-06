@@ -1,0 +1,110 @@
+<form action="cgi-bin/population-ready.php" method="POST">
+    <p>This form generates virtual plants in a simulated population of ferns growing in the 3D virtual world, ScienceSim. &nbsp;This form is meant to be accessed from within the 3D simulation, and changes made here will not take effect until they are enabled there.</p>
+    <p><b>Genotype:</b> Specify the genotypes to be generated.</p>
+    <table border="0">
+        <tbody>
+            <tr>
+                <td>&nbsp;</td>
+                <th colspan="5">Haplotype 1</th>
+                <td>&nbsp;</td>
+                <th colspan="5">Haplotype 2</th>
+            </tr>
+            <tr>
+                <td>Locus:</td>
+                <th>&nbsp; 5</th>
+                <th>&nbsp; 4</th>
+                <th>&nbsp; 3</th>
+                <th>&nbsp; 2</th>
+                <th>&nbsp; 1</th>
+                <td>&nbsp;</td>
+                <th>&nbsp; 5</th>
+                <th>&nbsp; 4</th>
+                <th>&nbsp; 3</th>
+                <th>&nbsp; 2</th>
+                <th>&nbsp; 1</th>
+                <td>&nbsp;</td>
+                <th>&nbsp;</th>
+            </tr>
+            <tr>
+                <td>Dominant(1):</td>
+                <td><input value="1" name="hap1Locus5" type="radio"></td>
+                <td><input value="1" name="hap1Locus4" type="radio"></td>
+                <td><input value="1" name="hap1Locus3" type="radio"></td>
+                <td><input value="1" name="hap1Locus2" type="radio"></td>
+                <td><input value="1" name="hap1Locus1" type="radio"></td>
+                <td>&nbsp;</td>
+                <td><input value="1" name="hap2Locus5" type="radio"></td>
+                <td><input value="1" name="hap2Locus4" type="radio"></td>
+                <td><input value="1" name="hap2Locus3" type="radio"></td>
+                <td><input value="1" name="hap2Locus2" type="radio"></td>
+                <td><input value="1" name="hap2Locus1" type="radio"></td>
+                <td>&nbsp;</td>
+                <td align="center"><b>Leave</b></td>
+            </tr>
+            <tr>
+                <td>Recessive(0):</td>
+                <td><input value="0" name="hap1Locus5" type="radio"></td>
+                <td><input value="0" name="hap1Locus4" type="radio"></td>
+                <td><input value="0" name="hap1Locus3" type="radio"></td>
+                <td><input value="0" name="hap1Locus2" type="radio"></td>
+                <td><input value="0" name="hap1Locus1" type="radio"></td>
+                <td>&nbsp;</td>
+                <td><input value="0" name="hap2Locus5" type="radio"></td>
+                <td><input value="0" name="hap2Locus4" type="radio"></td>
+                <td><input value="0" name="hap2Locus3" type="radio"></td>
+                <td><input value="0" name="hap2Locus2" type="radio"></td>
+                <td><input value="0" name="hap2Locus1" type="radio"></td>
+                <td>&nbsp;</td>
+                <td align="center"><b>Haplotype 2</b></td>
+            </tr>
+            <tr>
+                <td>Randomize:</td>
+                <td><input checked="checked" value="r" name="hap1Locus5" type="radio"></td>
+                <td><input checked="checked" value="r" name="hap1Locus4" type="radio"></td>
+                <td><input checked="checked" value="r" name="hap1Locus3" type="radio"></td>
+                <td><input checked="checked" value="r" name="hap1Locus2" type="radio"></td>
+                <td><input checked="checked" value="r" name="hap1Locus1" type="radio"></td>
+                <td>&nbsp;</td>
+                <td><input value="r" name="hap2Locus5" type="radio"></td>
+                <td><input value="r" name="hap2Locus4" type="radio"></td>
+                <td><input value="r" name="hap2Locus3" type="radio"></td>
+                <td><input value="r" name="hap2Locus2" type="radio"></td>
+                <td><input value="r" name="hap2Locus1" type="radio"></td>
+                <td>&nbsp;</td>
+                <td align="center"><b>blank for</b></td>
+            </tr>
+            <tr>
+                <td>Blank:</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td><input checked="checked" value="b" name="hap2Locus5" type="radio"></td>
+                <td><input checked="checked" value="b" name="hap2Locus4" type="radio"></td>
+                <td><input checked="checked" value="b" name="hap2Locus3" type="radio"></td>
+                <td><input checked="checked" value="b" name="hap2Locus2" type="radio"></td>
+                <td><input checked="checked" value="b" name="hap2Locus1" type="radio"></td>
+                <td>&nbsp;</td>
+                <td align="center"><b>spores</b></td>
+            </tr>
+        </tbody>
+    </table><br>
+    <p><b>Range:</b> Specify the range (in region coordinates) where the plants should be generated.</p>
+        X Range:
+            <input size="3" maxlength="3" value="0" name="xMin" type="text">&nbsp; - &nbsp;
+            <input size="3" maxlength="3" value="256" name="xMax" type="text"><i><font size="-1"> (0-256)</font></i><br>
+        Y Range:
+            <input size="3" maxlength="3" value="0" name="yMin" type="text">&nbsp; - &nbsp;
+            <input size="3" maxlength="3" value="256" name="yMax" type="text"><i><font size="-1"> (0-256)</font></i><br><br>
+    <p><b>Quantity:</b> Specify the number of spores or sporophytes to generate.</p>
+        Qty:
+            <input size="3" maxlength="3" value="1" name="qty" type="text"><i><font size="-1"> (1-500)</font></i><br><br>
+    <p><b>Retries:</b> When a randomly selected location is underwater nothing will be planted.  To ensure that the specified number of plants is generated, click here.</p>
+    <p>Retry to reach exact quantity:
+        <input checked="checked" name="retries" type="checkbox"></p>
+        <input value="Reset the Form" type="RESET">
+        <input value="Submit" type="submit"><p>&nbsp;
+    </p>
+</form>
